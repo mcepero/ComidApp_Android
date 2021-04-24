@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.DetallesRestaurante">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/detallesRestauranteNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:text="Nombre" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/detallesRestauranteDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:text="Dirección" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detallesRestauranteCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Ciudad" />
+
+        <TextView
+            android:id="@+id/detallesResturanteTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Teléfono"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/detallesRestauranteEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="Email" />
+    </LinearLayout>
+
+</FrameLayout>

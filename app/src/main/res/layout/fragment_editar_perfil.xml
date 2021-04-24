@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.EditarPerfil">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:text="Editar perfil" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:textSize="16dp"
+            android:text="Nombre" />
+
+        <EditText
+            android:id="@+id/editarPerfilTextoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"
+            android:text="Usuario" />
+
+        <EditText
+            android:id="@+id/editarPerfilTextoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:id="@+id/editarPerfilContrasena"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:layout_marginTop="18dp"
+                android:text="Contraseña" />
+
+            <EditText
+                android:id="@+id/editarPerfilTextoContrasena"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="match_parent"></EditText>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Email"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"/>
+
+        <EditText
+            android:id="@+id/editarPerfilTextoEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilDireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="Dirección" />
+
+        <EditText
+            android:id="@+id/editarPerfilTextoDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/perfilCiudad"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="Ciudad" />
+
+        <EditText
+            android:id="@+id/editarPerfilTextoCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/guardarPerfil"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:text="Guardar"></Button>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="Registro"
+        android:textSize="24sp"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:id="@+id/registro_email"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Email"
+        android:layout_gravity="center"
+        android:gravity="center"></EditText>
+
+    <EditText
+        android:id="@+id/registro_user"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Usuario"
+        android:layout_gravity="center"
+        android:gravity="center"></EditText>
+
+    <EditText
+    android:id="@+id/registro_pass"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:hint="Contraseña"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/registro_nombre"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Nombre"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/registro_direccion"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Dirección"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center">
+    </EditText>
+
+    <TextView
+        android:id="@+id/registro_iniciarsesion"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="¿Ya estás registrado? Iniciar sesión"
+        android:textSize="12sp"></TextView>
+
+    <Button
+        android:id="@+id/registro_registro"
+        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="Registro"></Button>
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_lista_restaurantes"
+        android:title="Restaurantes"
+        android:icon="@drawable/ic_action_name"></item>
+    <item android:id="@+id/menu_mapa"
+        android:title="Mapa"
+        android:icon="@drawable/ic_action_name_location"></item>
+    <item android:id="@+id/menu_perfil"
+        android:title="Perfil"
+        android:icon="@drawable/ic_action_name_profile"></item>
+</menu>
