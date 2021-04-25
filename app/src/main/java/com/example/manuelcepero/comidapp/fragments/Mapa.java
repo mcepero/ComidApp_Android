@@ -133,7 +133,7 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                     String strAddress = r.getDireccion()+","+r.getCiudad();
                     List<Address> address;
 
-                    address = geocoder.getFromLocationName(strAddress,5);
+                    address = geocoder.getFromLocationName(strAddress,1);
                         /*if (address==null) {
                             return null;
                         }*/

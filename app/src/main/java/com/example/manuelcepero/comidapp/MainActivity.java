@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
-    String hostServerName = "192.168.0.16";//"10.0.2.2";
+    String hostServerName = /*"192.168.0.16";*/"10.0.2.2";
     int servicePort = 4444;
 
     LoginViewModel loginViewModel;
