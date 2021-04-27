@@ -4,11 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Restaurante implements Parcelable {
+    private int id;
     private String nombre;
     private String email;
     private String telefono;
     private String direccion;
     private String ciudad;
+    private String categoria;
 
     public Restaurante(String nombre, String email, String telefono, String direccion, String ciudad) {
         this.nombre = nombre;
@@ -18,7 +20,27 @@ public class Restaurante implements Parcelable {
         this.ciudad = ciudad;
     }
 
+    public Restaurante(String nombre, String email, String telefono, String direccion, String ciudad, String categoria) {
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.categoria = categoria;
+    }
+
+    public Restaurante(int id, String nombre, String email, String telefono, String direccion, String ciudad, String categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.categoria = categoria;
+    }
+
     protected Restaurante(Parcel in) {
+        id = in.readInt();
         nombre = in.readString();
         email = in.readString();
         telefono = in.readString();
@@ -37,6 +59,14 @@ public class Restaurante implements Parcelable {
             return new Restaurante[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -78,6 +108,14 @@ public class Restaurante implements Parcelable {
         this.ciudad = ciudad;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -85,10 +123,12 @@ public class Restaurante implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(nombre);
         dest.writeString(email);
         dest.writeString(telefono);
         dest.writeString(direccion);
         dest.writeString(ciudad);
+        dest.writeString(categoria);
     }
 }

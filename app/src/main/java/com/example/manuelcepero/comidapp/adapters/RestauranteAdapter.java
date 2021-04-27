@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.manuelcepero.comidapp.R;
+import com.example.manuelcepero.comidapp.fragments.ContenedorDetalles;
 import com.example.manuelcepero.comidapp.fragments.DetallesRestaurante;
 import com.example.manuelcepero.comidapp.fragments.ListaRestaurantes;
 import com.example.manuelcepero.comidapp.models.Restaurante;
@@ -73,7 +74,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         holder.nombre.setText(restaurante.getNombre());
         holder.direccion.setText("Dirección: " + restaurante.getDireccion()+" ("+restaurante.getCiudad()+")");
         holder.telefono.setText("Teléfono: " + restaurante.getTelefono());
-        holder.email.setText("Email: " + restaurante.getEmail());
+        holder.categoria.setText("Categoría: " + restaurante.getCategoria());
     }
 
     @Override
@@ -81,40 +82,53 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
         return listaRestaurantes.size();
     }
 
-    public void filter(final String strSearch) {
-        if (strSearch.length() == 0) {
+    public void filter(final String strSearch, final String categoria) {
+        if (strSearch.length() == 0 && categoria.equals("Todas")) {
             listaRestaurantes.clear();
             listaRestaurantes.addAll(originalItems);
-        } else {
+            notifyDataSetChanged();
+        }else if(strSearch.length() == 0 && categoria.length()>0 && !categoria.equals("Todas")){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 listaRestaurantes.clear();
 
-                List<Restaurante> collect = originalItems.stream().filter(i -> i.getNombre().toLowerCase().contains(strSearch))
+                //Filtra por categoría
+                List<Restaurante> collect = originalItems.stream().filter(i -> i.getCategoria().toLowerCase().contains(categoria.toLowerCase()))
                         .collect(Collectors.<Restaurante>toList());
 
                 listaRestaurantes.addAll(collect);
-
-                //Filtra por ciudad
-                /*collect = originalItems.stream().filter(i -> i.getCiudad().toLowerCase().contains(strSearch))
-                        .collect(Collectors.<Restaurante>toList())
-
-                listaRestaurantes.addAll(collect);*/
-
             } else {
                 listaRestaurantes.clear();
                 for (Restaurante i : originalItems) {
-                    if (i.getNombre().toLowerCase().contains(strSearch)) {
+                    if (i.getCategoria().toLowerCase().contains(categoria.toLowerCase())) {
                         listaRestaurantes.add(i);
                     }
                 }
             }
+            notifyDataSetChanged();
+        }else if(strSearch.length() > 0 && categoria.equals("Todas")){
+            listaRestaurantes.clear();
+            for (Restaurante i : originalItems) {
+                if (i.getNombre().toLowerCase().contains(strSearch)) {
+                    listaRestaurantes.add(i);
+                }
+            }
+            notifyDataSetChanged();
+        }else {
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                listaRestaurantes.clear();
+                for (Restaurante i : originalItems) {
+                    if (i.getNombre().toLowerCase().contains(strSearch) && i.getCategoria().toLowerCase().contains(categoria.toLowerCase())) {
+                        listaRestaurantes.add(i);
+                    }
+                }
+           // }
             notifyDataSetChanged();
         }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable {
         public LinearLayout linearLayout;
-        public TextView nombre, direccion, telefono, email;
+        public TextView nombre, direccion, telefono, categoria;
 
 
         public ViewHolder(View itemView) {
@@ -123,7 +137,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
             nombre = (TextView) itemView.findViewById(R.id.nombreRestauranteLista);
             direccion = (TextView) itemView.findViewById(R.id.direccionRestauranteLista);
             telefono = (TextView) itemView.findViewById(R.id.telefonoRestauranteLista);
-            email = (TextView) itemView.findViewById(R.id.emailRestauranteLista);
+            categoria = (TextView) itemView.findViewById(R.id.categoriaRestauranteLista);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,11 +147,11 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                     Restaurante r = listaRestaurantes.get(position);
 
 
-                    DetallesRestaurante detallesRestauranteFragment = new DetallesRestaurante();
-
+                    //DetallesRestaurante detallesRestauranteFragment = new DetallesRestaurante();
+                    ContenedorDetalles contenedorDetalles = new ContenedorDetalles();
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("restaurante", r);
-                    detallesRestauranteFragment.setArguments(bundle);
+                    contenedorDetalles.setArguments(bundle);
 
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
 
@@ -145,7 +159,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                         activity.getSupportFragmentManager().popBackStackImmediate();
                     }
                     activity.getSupportFragmentManager().beginTransaction().
-                            replace(R.id.container, detallesRestauranteFragment).addToBackStack(ListaRestaurantes.class.getName())
+                            replace(R.id.container, contenedorDetalles).addToBackStack(ListaRestaurantes.class.getName())
                             .addToBackStack(ListaRestaurantes.class.getName())
                             .commit();
 

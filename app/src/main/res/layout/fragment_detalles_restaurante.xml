@@ -8,8 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/detallesRestauranteNombre"
@@ -17,6 +16,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="28dp"
+            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:text="Nombre" />
 
@@ -46,6 +46,15 @@
             android:textSize="16dp"
             android:layout_marginTop="20dp"
             android:text="Ciudad" />
+
+        <TextView
+            android:id="@+id/detallesRestauranteCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Categoría" />
 
         <TextView
             android:id="@+id/detallesResturanteTelefono"

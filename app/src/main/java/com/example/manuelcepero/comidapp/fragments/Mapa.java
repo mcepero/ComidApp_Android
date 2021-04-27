@@ -88,7 +88,7 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
 
                 if (flag.equals(Mensajes.PETICION_OBTENER_RESTAURANTE_CORRECTO)){
                     DetallesRestaurante detallesRestauranteFragment = new DetallesRestaurante();
-                    Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5]);
+                    Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5], args[6]);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("restaurante", r);
                     detallesRestauranteFragment.setArguments(bundle);
@@ -123,7 +123,7 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                     args=received.split("--");
                     flag = args[0];
 
-                    Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5]);
+                    Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5], args[6]);
                     listaRestaurantes.add(r);
 
                     //Añade restaurante al mapa
@@ -151,15 +151,3 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
         }
     }
 }
-
-//Hacer click en un restaurante
-/*
-* map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    int position = (int)(marker.getTag());
-                   //Using position get Value from arraylist
-                    return false;
-                }
-            });
-* */

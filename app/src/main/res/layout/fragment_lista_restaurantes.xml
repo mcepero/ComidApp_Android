@@ -20,6 +20,13 @@
             android:iconifiedByDefault="false"
             android:layout_height="wrap_content"></SearchView>
 
+        <Spinner
+            android:id="@+id/categorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"></Spinner>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
