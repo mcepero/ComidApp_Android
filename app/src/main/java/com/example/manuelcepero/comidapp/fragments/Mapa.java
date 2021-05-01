@@ -87,7 +87,7 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                 flag = args[0];
 
                 if (flag.equals(Mensajes.PETICION_OBTENER_RESTAURANTE_CORRECTO)){
-                    DetallesRestaurante detallesRestauranteFragment = new DetallesRestaurante();
+                    ContenedorDetalles detallesRestauranteFragment = new ContenedorDetalles();
                     Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5], args[6]);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("restaurante", r);

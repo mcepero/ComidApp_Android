@@ -2,7 +2,6 @@ package com.example.manuelcepero.comidapp.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,6 @@ import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
 import com.example.manuelcepero.comidapp.fragments.Cesta;
 import com.example.manuelcepero.comidapp.models.Producto;
-import com.example.manuelcepero.comidapp.models.Restaurante;
-import com.example.manuelcepero.comidapp.utils.Mensajes;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,18 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder>{
+public class ProductoCestaAdapter extends RecyclerView.Adapter<ProductoCestaAdapter.ViewHolder>{
     private List<Producto> listaProductos;
     private int layout;
     private Activity activity;
     private View.OnClickListener listener;
     private Context context;
     private List<Producto> originalItems;
+    private Cesta cesta;
 
 
-    public ProductoAdapter(Context context, ArrayList<Producto> listaProductos, View.OnClickListener listener) {
+    public ProductoCestaAdapter(Context context, ArrayList<Producto> listaProductos, View.OnClickListener listener) {
         this.context = context;
         this.listaProductos = listaProductos;
         this.listener = listener;
@@ -48,33 +46,41 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
         originalItems.addAll(listaProductos);
     }
 
-    public ProductoAdapter(Context context, View.OnClickListener listener) {
+    public ProductoCestaAdapter(Context context, View.OnClickListener listener) {
         this.context = context;
         this.listener = listener;
         this.listaProductos = new ArrayList<>();
     }
 
-    public ProductoAdapter(Context context, List<Producto> listaRestaurantes) {
+    public ProductoCestaAdapter(Context context, List<Producto> listaRestaurantes) {
         this.listaProductos = listaRestaurantes;
         this.context = context;
         this.originalItems = new ArrayList<>();
         originalItems.addAll(listaRestaurantes);
+    }
+
+    public ProductoCestaAdapter(Context context, List<Producto> listaRestaurantes, Cesta cesta) {
+        this.listaProductos = listaRestaurantes;
+        this.context = context;
+        this.originalItems = new ArrayList<>();
+        this.cesta=cesta;
+        originalItems.addAll(listaRestaurantes);
 
     }
 
-    public ProductoAdapter(Context context) {
+    public ProductoCestaAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ProductoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_carta, parent, false);
-        return new ProductoAdapter.ViewHolder(v);
+    public ProductoCestaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_cesta, parent, false);
+        return new ProductoCestaAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductoAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductoCestaAdapter.ViewHolder holder, int position) {
         Producto producto = listaProductos.get(position);
 
         holder.nombre.setText(producto.getNombre());
@@ -114,10 +120,13 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
             anadirCesta.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("Ok...");
                     int position = getAdapterPosition();
-                    Producto p= listaProductos.get(position);
-                    Cesta.getListaProductos().add(p);
+                    if (position!=-1) {
+                        Producto p = listaProductos.get(position);
+                        Cesta.getListaProductos().remove(p);
+                        notifyItemRemoved(position);
+                    }
+                    cesta.recargarPrecioTotal();
                 }
             });
         }

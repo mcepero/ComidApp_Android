@@ -2,23 +2,34 @@ package com.example.manuelcepero.comidapp.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.manuelcepero.comidapp.R;
+import com.example.manuelcepero.comidapp.SocketHandler;
 import com.example.manuelcepero.comidapp.fragments.ContenedorDetalles;
 import com.example.manuelcepero.comidapp.fragments.DetallesRestaurante;
 import com.example.manuelcepero.comidapp.fragments.ListaRestaurantes;
 import com.example.manuelcepero.comidapp.models.Restaurante;
+import com.example.manuelcepero.comidapp.utils.Mensajes;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
@@ -129,7 +140,6 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, Serializable {
         public LinearLayout linearLayout;
         public TextView nombre, direccion, telefono, categoria;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

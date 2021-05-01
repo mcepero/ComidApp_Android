@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.models.Restaurante;
+import com.example.manuelcepero.comidapp.models.Valoracion;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.fragment.app.Fragment;
@@ -60,6 +61,14 @@ public class ContenedorDetalles extends Fragment {
                         cartaRestaurante.setArguments(bundle);
 
                         showSelectedFragment(cartaRestaurante);
+                        break;
+                    case 2:
+                        Valoraciones valoraciones = new Valoraciones();
+                        bundle = new Bundle();
+                        bundle.putParcelable("restaurante", r);
+                        valoraciones.setArguments(bundle);
+
+                        showSelectedFragment(valoraciones);
                         break;
                 }
             }

@@ -8,6 +8,10 @@ public class Mensajes {
     public final static String PETICION_OBTENER_RESTAURANTE = "P5OBTENERRESTAURANTE";
     public final static String PETICION_OBTENER_CATEGORIAS = "P6OBTENERCATEGORIAS";
     public final static String PETICION_MOSTRAR_CARTA = "PR4CARTA";
+    public final static String PETICION_FOTO_PRODUCTO = "PR13FOTOPRODUCTO";
+    public final static String PETICION_MOSTRAR_VALORACIONES = "P7MOSRTARVALORACIONES";
+    public final static String PETICION_ANADIR_VALORACION = "P8ANADIRVALORACION";
+
 
 
     //Correcto
@@ -18,6 +22,10 @@ public class Mensajes {
     public final static String PETICION_OBTENER_RESTAURANTE_CORRECTO = "C5OBTENERRESTAURANTE";
     public final static String PETICION_OBTENER_CATEGORIAS_CORRECTO= "C6OBTENERCATEGORIAS";
     public final static String PETICION_MOSTRAR_CARTA_CORRECTO = "CR4CARTA";
+    public final static String PETICION_FOTO_PRODUCTO_CORRECTO = "CR13FOTOPRODUCTO";
+    public final static String PETICION_MOSTRAR_VALORACIONES_CORRECTO = "C7MOSRTARVALORACIONES";
+    public final static String PETICION_ANADIR_VALORACION_CORRECTO= "C8ANADIRVALORACION";
+
 
 
 
@@ -29,6 +37,8 @@ public class Mensajes {
     public final static String PETICION_OBTENER_RESTAURANTE_ERROR = "E5OBTENERRESTAURANTE";
     public final static String PETICION_OBTENER_CATEGORIAS_ERROR = "E6OBTENERCATEGORIAS";
     public final static String PETICION_MOSTRAR_CARTA_ERROR = "ER4CARTA";
-
+    public final static String PETICION_FOTO_PRODUCTO_ERROR = "ER13FOTOPRODUCTO";
+    public final static String PETICION_MOSTRAR_VALORACIONES_ERROR = "E7MOSRTARVALORACIONES";
+    public final static String PETICION_ANADIR_VALORACION_ERROR = "E8ANADIRVALORACION";
 
 }

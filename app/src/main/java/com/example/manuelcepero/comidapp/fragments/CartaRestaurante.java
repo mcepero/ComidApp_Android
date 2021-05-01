@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -50,6 +51,7 @@ public class CartaRestaurante extends Fragment{
         }
 
         obtenerRestaurantes();
+
         return v;
     }
 
@@ -72,7 +74,7 @@ public class CartaRestaurante extends Fragment{
                     args=received.split("--");
                     flag = args[0];
 
-                    Producto p = new Producto(args[1], args[2], Double.parseDouble(args[3]));
+                    Producto p = new Producto(Integer.parseInt(args[4]), args[1], args[2], Double.parseDouble(args[3]));
                     listaProductos.add(p);
                 }
                 adapter = new ProductoAdapter(getContext(), listaProductos);

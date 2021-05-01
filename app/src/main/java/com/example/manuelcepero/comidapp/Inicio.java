@@ -10,6 +10,8 @@ import androidx.fragment.app.ListFragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.manuelcepero.comidapp.fragments.CartaRestaurante;
+import com.example.manuelcepero.comidapp.fragments.Cesta;
 import com.example.manuelcepero.comidapp.fragments.ListaRestaurantes;
 import com.example.manuelcepero.comidapp.fragments.Mapa;
 import com.example.manuelcepero.comidapp.fragments.Perfil;
@@ -38,6 +40,9 @@ public class Inicio extends AppCompatActivity {
                 }
                 if (menuItem.getItemId()==R.id.menu_perfil){
                     showSelectedFragment(new Perfil());
+                }
+                if (menuItem.getItemId()==R.id.menu_cesta){
+                    showSelectedFragment(new Cesta());
                 }
                 return true;
             }
