@@ -4,11 +4,19 @@ public class Valoracion {
     private int id;
     private String comentario;
     private int nota;
+    private int idCliente;
 
     public Valoracion(int id, String comentario, int nota) {
         this.id = id;
         this.comentario = comentario;
         this.nota = nota;
+    }
+
+    public Valoracion(int id, String comentario, int nota, int idCliente) {
+        this.id = id;
+        this.comentario = comentario;
+        this.nota = nota;
+        this.idCliente = idCliente;
     }
 
     public int getId() {
@@ -33,5 +41,13 @@ public class Valoracion {
 
     public void setNota(int nota) {
         this.nota = nota;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 }

@@ -11,6 +11,7 @@ public class Mensajes {
     public final static String PETICION_FOTO_PRODUCTO = "PR13FOTOPRODUCTO";
     public final static String PETICION_MOSTRAR_VALORACIONES = "P7MOSRTARVALORACIONES";
     public final static String PETICION_ANADIR_VALORACION = "P8ANADIRVALORACION";
+    public final static String PETICION_REALIZAR_PEDIDO = "P9REALIZARPEDIDO";
 
 
 
@@ -25,6 +26,8 @@ public class Mensajes {
     public final static String PETICION_FOTO_PRODUCTO_CORRECTO = "CR13FOTOPRODUCTO";
     public final static String PETICION_MOSTRAR_VALORACIONES_CORRECTO = "C7MOSRTARVALORACIONES";
     public final static String PETICION_ANADIR_VALORACION_CORRECTO= "C8ANADIRVALORACION";
+    public final static String PETICION_REALIZAR_PEDIDO_CORRECTO = "C9REALIZARPEDIDO";
+
 
 
 
@@ -40,5 +43,6 @@ public class Mensajes {
     public final static String PETICION_FOTO_PRODUCTO_ERROR = "ER13FOTOPRODUCTO";
     public final static String PETICION_MOSTRAR_VALORACIONES_ERROR = "E7MOSRTARVALORACIONES";
     public final static String PETICION_ANADIR_VALORACION_ERROR = "E8ANADIRVALORACION";
+    public final static String PETICION_REALIZAR_PEDIDO_ERROR = "E9REALIZARPEDIDO";
 
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -117,7 +118,22 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
                     System.out.println("Ok...");
                     int position = getAdapterPosition();
                     Producto p= listaProductos.get(position);
-                    Cesta.getListaProductos().add(p);
+
+                    boolean restauranteDistinto=false;
+                    for(int i=0; i<Cesta.getListaProductos().size(); i++){
+                        System.out.println(Cesta.getListaProductos().get(i).getIdRestaurante()+ " " + p.getIdRestaurante());
+                        if (Cesta.getListaProductos().get(i).getIdRestaurante()!=p.getIdRestaurante()){
+                            restauranteDistinto=true;
+                            break;
+                        }
+                    }
+
+                    if (!restauranteDistinto) {
+                        Cesta.getListaProductos().add(p);
+                    }else{
+                        Toast.makeText(context, "No se pueden añadir productos de distintos restaurantes.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

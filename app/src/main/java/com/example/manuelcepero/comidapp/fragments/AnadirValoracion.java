@@ -9,12 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
 import com.example.manuelcepero.comidapp.models.Restaurante;
+import com.example.manuelcepero.comidapp.models.Usuario;
 import com.example.manuelcepero.comidapp.models.Valoracion;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
+import com.example.manuelcepero.comidapp.utils.UsuarioActual;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
@@ -58,22 +61,37 @@ public class AnadirValoracion  extends Fragment {
         anadirValoracion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SocketHandler.getOut().println(Mensajes.PETICION_ANADIR_VALORACION + "--" + r.getId() + "--" + comentario.getText() + "--" + s.getSelectedItem().toString());
 
-                try {
-                    if (SocketHandler.getIn().readLine().equals(Mensajes.PETICION_ANADIR_VALORACION_CORRECTO)){
-                        Valoraciones valoraciones = new Valoraciones();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("restaurante", r);
-                        valoraciones.setArguments(bundle);
-
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerDetalles, valoraciones)
-                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .addToBackStack(this.getClass().getName())
-                                .commit();
+                boolean usuarioRepetido=false;
+                for (int i=0; i<Valoraciones.getListaValoraciones().size(); i++){
+                    if (Valoraciones.getListaValoraciones().get(i).getIdCliente()==UsuarioActual.getId()){
+                        usuarioRepetido=true;
+                        break;
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                }
+
+                if (!usuarioRepetido) {
+                    SocketHandler.getOut().println(Mensajes.PETICION_ANADIR_VALORACION + "--" + r.getId() + "--" + comentario.getText() + "--" + s.getSelectedItem().toString() + "--" + UsuarioActual.getId());
+
+                    try {
+                        if (SocketHandler.getIn().readLine().equals(Mensajes.PETICION_ANADIR_VALORACION_CORRECTO)) {
+                            Valoraciones valoraciones = new Valoraciones();
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("restaurante", r);
+                            valoraciones.setArguments(bundle);
+
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerDetalles, valoraciones)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                    .addToBackStack(this.getClass().getName())
+                                    .commit();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "Ya has añadido una valoración para este restaurante.",
+                            Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

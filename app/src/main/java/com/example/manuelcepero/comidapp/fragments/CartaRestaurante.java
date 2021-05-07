@@ -1,5 +1,6 @@
 package com.example.manuelcepero.comidapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +75,7 @@ public class CartaRestaurante extends Fragment{
                     args=received.split("--");
                     flag = args[0];
 
-                    Producto p = new Producto(Integer.parseInt(args[4]), args[1], args[2], Double.parseDouble(args[3]));
+                    Producto p = new Producto(Integer.parseInt(args[4]), args[1], args[2], Double.parseDouble(args[3]), Integer.parseInt(args[5]));
                     listaProductos.add(p);
                 }
                 adapter = new ProductoAdapter(getContext(), listaProductos);

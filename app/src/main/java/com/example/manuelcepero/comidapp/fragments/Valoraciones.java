@@ -28,7 +28,7 @@ public class Valoraciones extends Fragment {
     private RecyclerView recyclerView;
     private ValoracionAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Valoracion> listaValoraciones;
+    private static ArrayList<Valoracion> listaValoraciones;
     private Restaurante r;
     Button anadirValoracion;
 
@@ -90,7 +90,7 @@ public class Valoraciones extends Fragment {
                     args=received.split("--");
                     flag = args[0];
 
-                    Valoracion v = new Valoracion(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
+                    Valoracion v = new Valoracion(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]));
                     listaValoraciones.add(v);
                 }
                 adapter = new ValoracionAdapter(getContext(), listaValoraciones);
@@ -106,5 +106,13 @@ public class Valoraciones extends Fragment {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(this.getClass().getName())
                 .commit();
+    }
+
+    public static ArrayList<Valoracion> getListaValoraciones() {
+        return listaValoraciones;
+    }
+
+    public static void setListaValoraciones(ArrayList<Valoracion> listaValoraciones) {
+        Valoraciones.listaValoraciones = listaValoraciones;
     }
 }

@@ -5,6 +5,7 @@ public class Producto {
     private String nombre;
     private String ingredientes;
     private double precio;
+    private int idRestaurante;
 
     public Producto(String nombre, String ingredientes, double precio) {
         this.nombre = nombre;
@@ -17,6 +18,14 @@ public class Producto {
         this.nombre = nombre;
         this.ingredientes = ingredientes;
         this.precio = precio;
+    }
+
+    public Producto(int id, String nombre, String ingredientes, double precio, int idRestaurante) {
+        this.id = id;
+        this.nombre = nombre;
+        this.ingredientes = ingredientes;
+        this.precio = precio;
+        this.idRestaurante = idRestaurante;
     }
 
     public int getId() {
@@ -49,5 +58,13 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public int getIdRestaurante() {
+        return idRestaurante;
+    }
+
+    public void setIdRestaurante(int idRestaurante) {
+        this.idRestaurante = idRestaurante;
     }
 }
