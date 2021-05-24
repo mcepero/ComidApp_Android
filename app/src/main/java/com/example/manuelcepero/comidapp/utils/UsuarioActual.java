@@ -8,6 +8,10 @@ public class UsuarioActual {
     private static String direccion;
     private static String ciudad;
 
+    //Campos para repartidor
+    private static String dni;
+    private static String restaurante;
+
     public static int getId() {
         return id;
     }
@@ -54,5 +58,21 @@ public class UsuarioActual {
 
     public static void setCiudad(String ciudad) {
         UsuarioActual.ciudad = ciudad;
+    }
+
+    public static String getDni() {
+        return dni;
+    }
+
+    public static void setDni(String dni) {
+        UsuarioActual.dni = dni;
+    }
+
+    public static String getRestaurante() {
+        return restaurante;
+    }
+
+    public static void setRestaurante(String restaurante) {
+        UsuarioActual.restaurante = restaurante;
     }
 }

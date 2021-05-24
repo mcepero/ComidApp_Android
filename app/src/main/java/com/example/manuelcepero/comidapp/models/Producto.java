@@ -1,6 +1,9 @@
 package com.example.manuelcepero.comidapp.models;
 
-public class Producto {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Producto implements Parcelable {
     private int id;
     private String nombre;
     private String ingredientes;
@@ -27,6 +30,26 @@ public class Producto {
         this.precio = precio;
         this.idRestaurante = idRestaurante;
     }
+
+    protected Producto(Parcel in) {
+        id = in.readInt();
+        nombre = in.readString();
+        ingredientes = in.readString();
+        precio = in.readDouble();
+        idRestaurante = in.readInt();
+    }
+
+    public static final Creator<Producto> CREATOR = new Creator<Producto>() {
+        @Override
+        public Producto createFromParcel(Parcel in) {
+            return new Producto(in);
+        }
+
+        @Override
+        public Producto[] newArray(int size) {
+            return new Producto[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -66,5 +89,19 @@ public class Producto {
 
     public void setIdRestaurante(int idRestaurante) {
         this.idRestaurante = idRestaurante;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(nombre);
+        dest.writeString(ingredientes);
+        dest.writeDouble(precio);
+        dest.writeInt(idRestaurante);
     }
 }

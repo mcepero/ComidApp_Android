@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Perfil">
+    tools:context=".fragments.PerfilRepartidor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:text="Perfil" />
 
         <TextView
-            android:id="@+id/perfilNombre"
+            android:id="@+id/perfilRepartidorNombre"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -30,7 +30,7 @@
             android:text="Nombre" />
 
         <TextView
-            android:id="@+id/perfilUsuario"
+            android:id="@+id/perfilRepartidorUsuario"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -39,7 +39,7 @@
             android:text="Usuario" />
 
         <TextView
-            android:id="@+id/perfilEmail"
+            android:id="@+id/perfilRepartidorEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Email"
@@ -48,7 +48,7 @@
             android:layout_marginTop="20dp"/>
 
         <TextView
-            android:id="@+id/perfilDireccion"
+            android:id="@+id/perfilRepartidorDni"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="16dp"
@@ -56,10 +56,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:text="Dirección" />
+            android:text="DNI" />
 
         <TextView
-            android:id="@+id/perfilCiudad"
+            android:id="@+id/perfilRepartidorRestaurante"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="16dp"
@@ -67,18 +67,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:text="Ciudad" />
+            android:text="Restaurante" />
 
         <Button
-            android:id="@+id/pedidosBoton"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Últimos pedidos"></Button>
-
-        <Button
-            android:id="@+id/perfilBoton"
+            android:id="@+id/perfilRepartidorBoton"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -86,7 +78,7 @@
             android:text="Editar perfil"></Button>
 
         <Button
-            android:id="@+id/perfilBotonCerrarSesion"
+            android:id="@+id/perfilRepartidorBotonCerrarSesion"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

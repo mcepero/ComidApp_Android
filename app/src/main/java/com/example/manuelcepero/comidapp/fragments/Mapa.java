@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,10 +26,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.Socket;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -87,13 +93,13 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                 flag = args[0];
 
                 if (flag.equals(Mensajes.PETICION_OBTENER_RESTAURANTE_CORRECTO)){
-                    ContenedorDetalles detallesRestauranteFragment = new ContenedorDetalles();
-                    Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5], args[6]);
+                    ContenedorDetalles contenedorDetalles = new ContenedorDetalles();
+                    Restaurante r = new Restaurante(Integer.parseInt(args[7]), args[1], args[2], args[3], args[4], args[5], args[6]);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("restaurante", r);
-                    detallesRestauranteFragment.setArguments(bundle);
+                    contenedorDetalles.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction().
-                            replace(R.id.container, detallesRestauranteFragment).addToBackStack(Mapa.class.getName())
+                            replace(R.id.container, contenedorDetalles)
                             .addToBackStack(Mapa.class.getName())
                             .commit();
                 }
@@ -126,23 +132,31 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                     Restaurante r = new Restaurante(args[1], args[2], args[3], args[4], args[5], args[6]);
                     listaRestaurantes.add(r);
 
+                    //
+                    Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+                    String strAddress = r.getDireccion()+","+r.getCiudad();
+                    List<Address> address  = geocoder.getFromLocationName(strAddress, 1);
+
+                    //
                     //Añade restaurante al mapa
-                    Geocoder geocoder = new Geocoder(getContext());
+                    /*Geocoder geocoder = new Geocoder(getContext());
 
                     //Obtiene la longitud y latitud de la dirección
                     String strAddress = r.getDireccion()+","+r.getCiudad();
                     List<Address> address;
 
-                    address = geocoder.getFromLocationName(strAddress,1);
-                        /*if (address==null) {
-                            return null;
-                        }*/
+                    address = geocoder.getFromLocationName(strAddress,1);*/
+                        //if (address==null) {
+                        //    return null;
+                        //}
                     Address location=address.get(0);
                     //
                     double latitude= location.getLatitude();
                     double longitude= location.getLongitude();
                     final LatLng p1 = new LatLng(latitude, longitude);
                     map.addMarker(new MarkerOptions().position(p1).title(r.getNombre()).snippet(r.getDireccion() + "--" + r.getCiudad()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)));
+
                 }
 
             }
@@ -150,4 +164,5 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
             e.printStackTrace();
         }
     }
+
 }

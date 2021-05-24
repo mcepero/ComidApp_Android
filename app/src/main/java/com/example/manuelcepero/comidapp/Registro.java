@@ -2,10 +2,12 @@ package com.example.manuelcepero.comidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.utils.Mensajes;
@@ -36,12 +38,21 @@ public class Registro extends AppCompatActivity {
         final EditText nombre = findViewById(R.id.registro_nombre);
         final EditText direccion = findViewById(R.id.registro_direccion);
         final Button registro = findViewById(R.id.registro_registro);
+        final TextView iniciarSesion = findViewById(R.id.registro_iniciarsesion);
 
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SocketHandler.getOut().println(Mensajes.PETICION_REGISTRO+"--"+usuario.getText()+"--"+contrasena.getText()+"--"+email.getText()+"--"+ nombre.getText()+"--"+direccion.getText());
                 registro();
+            }
+        });
+
+        iniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent (Registro.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

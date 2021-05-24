@@ -16,6 +16,7 @@ import com.example.manuelcepero.comidapp.models.Restaurante;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -82,6 +83,8 @@ public class ListaRestaurantes extends Fragment implements SearchView.OnQueryTex
             flag = args[0];
 
             if (flag.equals(Mensajes.PETICION_MOSTRAR_RESTAURANTES_CORRECTO)){
+               // ObjectInputStream entrada2=new ObjectInputStream(SocketHandler.getSocket().getInputStream());
+                // ArrayList<Restaurante> listaRestaurantes = (ArrayList<Restaurante>) entrada2.readObject();
                 int numRestaurantes = Integer.parseInt(args[1]);
 
                 for (int i=0; i<numRestaurantes; i++){

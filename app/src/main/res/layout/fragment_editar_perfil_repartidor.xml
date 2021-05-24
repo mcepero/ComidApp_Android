@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.EditarPerfilRepartidor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilRepartidorTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:text="Editar perfil repartidor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilRepartidorNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:textSize="16dp"
+            android:text="Nombre" />
+
+        <EditText
+            android:id="@+id/editarPerfilRepartidorTextoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilRepartidorUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"
+            android:text="Usuario" />
+
+        <EditText
+            android:id="@+id/editarPerfilRepartidorTextoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:id="@+id/editarPerfilRepartidorContrasena"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:layout_marginTop="18dp"
+                android:text="Contraseña" />
+
+            <EditText
+                android:id="@+id/editarPerfilRepartidorTextoContrasena"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="match_parent"></EditText>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilRepartidorEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Email"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"/>
+
+        <EditText
+            android:id="@+id/editarPerfilRepartidorTextoEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/editarPerfilRepartidorDni"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="DNI" />
+
+        <EditText
+            android:id="@+id/editarPerfilRepartidorTextoDni"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="18dp">
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/guardarPerfilRepartidor"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:text="Guardar"></Button>
+    </LinearLayout>
+
+</FrameLayout>

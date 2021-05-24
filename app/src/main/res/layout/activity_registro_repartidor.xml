@@ -4,19 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".RegistroRepartidor"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="Iniciar sesión"
+        android:text="Registro como repartidor"
         android:textSize="24sp"
         android:textStyle="bold"></TextView>
 
     <EditText
-        android:id="@+id/user"
+        android:id="@+id/registroRepartidorEmail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Email"
+        android:layout_gravity="center"
+        android:gravity="center"></EditText>
+
+    <EditText
+        android:id="@+id/registroRepartidorUsuario"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:hint="Usuario"
@@ -24,39 +32,47 @@
         android:gravity="center"></EditText>
 
     <EditText
-        android:id="@+id/pass"
+    android:id="@+id/registroRepartidorContrasena"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:hint="Contraseña"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/registroRepartidorNombre"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
+        android:hint="Nombre"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/registroRepartidorDni"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="DNI"
         android:layout_gravity="center"
         android:clickable="true"
         android:gravity="center">
     </EditText>
 
     <TextView
-        android:id="@+id/registro"
+        android:id="@+id/registroRepartidorIniciarSesion"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="¿Aún no estás registrado?"
-        android:textSize="12sp"></TextView>
-
-    <TextView
-        android:id="@+id/loginRepartidor"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="Inicio de sesión para repartidores"
+        android:text="¿Ya estás registrado? Iniciar sesión como repartidor"
         android:textSize="12sp"></TextView>
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/registroRepartidorBoton"
         android:layout_marginTop="20dp"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Iniciar sesión"></Button>
-
+        android:text="Registro"></Button>
 
 </LinearLayout>
