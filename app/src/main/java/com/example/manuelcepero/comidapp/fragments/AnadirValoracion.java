@@ -74,7 +74,8 @@ public class AnadirValoracion  extends Fragment {
                     SocketHandler.getOut().println(Mensajes.PETICION_ANADIR_VALORACION + "--" + r.getId() + "--" + comentario.getText() + "--" + s.getSelectedItem().toString() + "--" + UsuarioActual.getId());
 
                     try {
-                        if (SocketHandler.getIn().readLine().equals(Mensajes.PETICION_ANADIR_VALORACION_CORRECTO)) {
+                        String received = SocketHandler.getIn().readLine();
+                        if (received.equals(Mensajes.PETICION_ANADIR_VALORACION_CORRECTO)) {
                             Valoraciones valoraciones = new Valoraciones();
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("restaurante", r);
@@ -84,6 +85,9 @@ public class AnadirValoracion  extends Fragment {
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .addToBackStack(this.getClass().getName())
                                     .commit();
+                        }else if (received.equals(Mensajes.PETICION_ANADIR_VALORACION_ERROR)){
+                            Toast.makeText(getContext(), "No puedes añadir una valoración si no has pedido en el restaurante.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

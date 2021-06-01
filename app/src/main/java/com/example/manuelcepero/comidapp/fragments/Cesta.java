@@ -29,6 +29,9 @@ import com.example.manuelcepero.comidapp.models.Restaurante;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.Socket;
 import java.text.DecimalFormat;
@@ -66,6 +69,8 @@ public class Cesta extends Fragment {
     TextView precio;
     private Restaurante r;
     double precioTotal=0;
+    InputStream in = null;
+    OutputStream out = null;
     private static PayPalConfiguration config = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_NO_NETWORK)
             .clientId("AejPzHTA5RM1P6pWbQFqJIoPswfJto150Xbsj_vmUyS1xEHETOYtokUzhZN-9adwFMu57qjvqKyueM7r");
@@ -114,6 +119,11 @@ public class Cesta extends Fragment {
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        try {
+            in = SocketHandler.getSocket().getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         /*Bundle args = this.getArguments();
         if (args != null) {
@@ -121,7 +131,7 @@ public class Cesta extends Fragment {
         }*/
         recargarPrecioTotal();
 
-        adapter = new ProductoCestaAdapter(getContext(), listaProductos, this);
+        adapter = new ProductoCestaAdapter(getContext(), listaProductos, this, in, out);
         recyclerView.setAdapter(adapter);
 
         botonPago.setOnClickListener(new View.OnClickListener() {

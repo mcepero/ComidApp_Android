@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
     <ImageView
@@ -28,9 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:gravity="center"
                 android:text="Nombre"
-                android:textAlignment="center"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -40,9 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.2"
-                android:gravity="center"
                 android:text="Ingredientes"
-                android:textAlignment="center"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -53,9 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_weight="0.2"
-                android:gravity="center"
                 android:text="Precio"
-                android:textAlignment="center"
                 android:textSize="12dp"
                 android:textStyle="bold" />
 

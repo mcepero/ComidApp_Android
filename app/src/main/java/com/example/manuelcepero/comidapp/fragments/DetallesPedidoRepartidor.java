@@ -27,6 +27,9 @@ public class DetallesPedidoRepartidor extends Fragment {
     private Usuario c;
     private View view;
     private Spinner listaEstados;
+    ArrayList<String> estados;
+    ArrayList<String> copiaEstados;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,29 @@ public class DetallesPedidoRepartidor extends Fragment {
         actualizarEstado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int posicion = listaEstados.getSelectedItemPosition()+1;
-                SocketHandler.getOut().println(Mensajes.PETICION_ACTUALIZAR_ESTADO+"--"+p.getId()+"--"+posicion);
+                int posicion = listaEstados.getSelectedItemPosition();
+
+                //REVISAR!!!
+                int posItem = estados.indexOf(listaEstados.getSelectedItem()) + 1;
+                SocketHandler.getOut().println(Mensajes.PETICION_ACTUALIZAR_ESTADO+"--"+p.getId()+"--"+posItem);
+
+                for (int i = 0; i < estados.size() ; i++) {
+                    System.out.println("$$$"+estados.get(i));
+                }
+
+                for (int i = 0; i < posicion ; i++) {
+                    copiaEstados.remove(0);
+                }
+
+                for (int i = 0; i < estados.size() ; i++) {
+                    System.out.println("!!!!"+estados.get(i));
+                }
+
+                ArrayAdapter<String> adapter =
+                        new ArrayAdapter<String>(getContext(),  android.R.layout.simple_spinner_dropdown_item, copiaEstados);
+                adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+                listaEstados.setAdapter(adapter);
             }
         });
 
@@ -85,7 +109,8 @@ public class DetallesPedidoRepartidor extends Fragment {
         }
        // productos.setText("Productos: " + listaProductos);
 
-        ArrayList<String> estados = new ArrayList<>();
+        estados = new ArrayList<>();
+        copiaEstados = new ArrayList<>();
         SocketHandler.getOut().println(Mensajes.PETICION_OBTENER_ESTADOS);
         String received;
         String flag = "";
@@ -102,16 +127,9 @@ public class DetallesPedidoRepartidor extends Fragment {
                 args=received.split("--");
                 flag = args[0];
                 estados.add(args[1]);
+                copiaEstados.add(args[1]);
             }
         }
-        //ObjectInputStream entrada2=new ObjectInputStream(SocketHandler.getSocket().getInputStream());
-       // ArrayList<String> estados = (ArrayList<String>) entrada2.readObject();
-
-        /*ArrayList<String> estados = new ArrayList<>();
-        estados.add("Recibido");
-        estados.add("En preparación");
-        estados.add("Enviado");
-        estados.add("Entregado");*/
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(getContext(),  android.R.layout.simple_spinner_dropdown_item, estados);
@@ -120,5 +138,17 @@ public class DetallesPedidoRepartidor extends Fragment {
         listaEstados.setAdapter(adapter);
 
         listaEstados.setSelection(adapter.getPosition(p.getEstado()));
+
+        ArrayList<String> copiaEstados = estados;
+        int posicion = listaEstados.getSelectedItemPosition();
+        for (int i = 0; i < posicion ; i++) {
+            copiaEstados.remove(0);
+        }
+
+        adapter =
+                new ArrayAdapter<String>(getContext(),  android.R.layout.simple_spinner_dropdown_item, copiaEstados);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        listaEstados.setAdapter(adapter);
     }
 }

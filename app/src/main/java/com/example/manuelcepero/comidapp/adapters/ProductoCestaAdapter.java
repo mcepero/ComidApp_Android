@@ -2,6 +2,9 @@ package com.example.manuelcepero.comidapp.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +17,14 @@ import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
 import com.example.manuelcepero.comidapp.fragments.Cesta;
 import com.example.manuelcepero.comidapp.models.Producto;
+import com.example.manuelcepero.comidapp.utils.Mensajes;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,6 +42,9 @@ public class ProductoCestaAdapter extends RecyclerView.Adapter<ProductoCestaAdap
     private Context context;
     private List<Producto> originalItems;
     private Cesta cesta;
+    InputStream is;
+    OutputStream os;
+
 
 
     public ProductoCestaAdapter(Context context, ArrayList<Producto> listaProductos, View.OnClickListener listener) {
@@ -52,18 +61,22 @@ public class ProductoCestaAdapter extends RecyclerView.Adapter<ProductoCestaAdap
         this.listaProductos = new ArrayList<>();
     }
 
-    public ProductoCestaAdapter(Context context, List<Producto> listaRestaurantes) {
-        this.listaProductos = listaRestaurantes;
+    public ProductoCestaAdapter(Context context, List<Producto> listaProductos, InputStream is, OutputStream os) {
+        this.listaProductos = listaProductos;
         this.context = context;
         this.originalItems = new ArrayList<>();
-        originalItems.addAll(listaRestaurantes);
+        this.is=is;
+        this.os=os;
+        originalItems.addAll(listaProductos);
     }
 
-    public ProductoCestaAdapter(Context context, List<Producto> listaRestaurantes, Cesta cesta) {
+    public ProductoCestaAdapter(Context context, List<Producto> listaRestaurantes, Cesta cesta, InputStream is, OutputStream os) {
         this.listaProductos = listaRestaurantes;
         this.context = context;
         this.originalItems = new ArrayList<>();
         this.cesta=cesta;
+        this.is=is;
+        this.os=os;
         originalItems.addAll(listaRestaurantes);
 
     }
@@ -88,12 +101,16 @@ public class ProductoCestaAdapter extends RecyclerView.Adapter<ProductoCestaAdap
         holder.ingredientes.setText("Ingredientes: " + producto.getIngredientes());
         holder.precio.setText("Precio: " + producto.getPrecio());
 
-        /*SocketHandler.getOut().println(Mensajes.PETICION_FOTO_PRODUCTO + "--" + producto.getId());
-        leerImagen();
-        String filePath = context.getFilesDir().getPath().toString() + "/imagenproducto.jpg";
-        System.out.println(filePath);
-        File imagen = new File(filePath);
-        Picasso.get().load(imagen).into(holder.imagen);*/
+        SocketHandler.getOut().println(Mensajes.PETICION_CARGAR_IMAGEN + "--" +listaProductos.get(position).getIdRestaurante()+"--"+listaProductos.get(position).getNombre());
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        try {
+            String cadena = br.readLine();
+            byte[] decodedString = Base64.decode(cadena, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imagen.setImageBitmap(decodedByte);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -134,33 +151,6 @@ public class ProductoCestaAdapter extends RecyclerView.Adapter<ProductoCestaAdap
         @Override
         public void onClick(View v) {
             listener.onClick(v);
-        }
-    }
-
-    public void leerImagen() {
-        InputStream in = null;
-        OutputStream out = null;
-        ArrayList<Byte> bytesImagen = new ArrayList<>();
-        String filePath = context.getFilesDir().getPath().toString() + "/imagenproducto.jpg";
-        File imagen = new File(filePath);
-
-        try {
-            in = SocketHandler.getSocket().getInputStream();
-            out = new FileOutputStream(imagen);
-            byte[] bytes = new byte[8096];
-
-            int count;
-
-            do {
-                count = in.read(bytes);
-                System.out.println(bytes);
-                out.write(bytes, 0, count);
-            } while (count == 8096);
-
-            out.close();
-            /*in.close();*/
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 }

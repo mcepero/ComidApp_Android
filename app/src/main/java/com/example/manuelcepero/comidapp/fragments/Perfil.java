@@ -61,6 +61,7 @@ public class Perfil extends Fragment{
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Cesta.getListaProductos().clear();
                 Intent intent= new Intent (getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();

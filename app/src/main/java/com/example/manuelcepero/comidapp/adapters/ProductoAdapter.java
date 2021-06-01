@@ -18,16 +18,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
+import com.example.manuelcepero.comidapp.fragments.CartaRestaurante;
 import com.example.manuelcepero.comidapp.fragments.Cesta;
 import com.example.manuelcepero.comidapp.models.Producto;
 import com.example.manuelcepero.comidapp.models.Restaurante;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
@@ -39,12 +42,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder>{
     private List<Producto> listaProductos;
-    private List<String> listaImagenes;
     private int layout;
     private Activity activity;
     private View.OnClickListener listener;
     private Context context;
     private List<Producto> originalItems;
+    InputStream is;
+    OutputStream os;
 
 
    /* public ProductoAdapter(Context context, ArrayList<Producto> listaProductos, View.OnClickListener listener) {
@@ -64,24 +68,15 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
 
     }*/
 
-    public ProductoAdapter(Context context, List<Producto> listaRestaurantes) {
+    public ProductoAdapter(Context context, List<Producto> listaRestaurantes, InputStream is, OutputStream os) {
         this.listaProductos = listaRestaurantes;
         this.context = context;
         this.originalItems = new ArrayList<>();
-        this.listaImagenes = new ArrayList<>();
         originalItems.addAll(listaRestaurantes);
+        this.is=is;
+        this.os=os;
     }
 
-    public ProductoAdapter(Context context, List<Producto> listaRestaurantes, List<String> listaImagenes) {
-        this.listaProductos = listaRestaurantes;
-        this.context = context;
-        this.originalItems = new ArrayList<>();
-        this.listaImagenes = new ArrayList<>();
-        originalItems.addAll(listaRestaurantes);
-        this.listaImagenes=listaImagenes;
-        //   recorrerImagenes();
-
-    }
 
     public ProductoAdapter(Context context) {
         this.context = context;
@@ -102,17 +97,29 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
        // holder.nombre.setText(producto.getNombre());
         holder.ingredientes.setText("Ingredientes: " + producto.getIngredientes());
         holder.precio.setText("Precio: " + producto.getPrecio());
+        SocketHandler.getOut().println(Mensajes.PETICION_CARGAR_IMAGEN + "--" +listaProductos.get(position).getIdRestaurante()+"--"+listaProductos.get(position).getNombre());
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        try {
+            String cadena = br.readLine();
+            byte[] decodedString = Base64.decode(cadena, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imagen.setImageBitmap(decodedByte);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+            //listaImagenes.add(listaProductos.get(i).getNombre()+listaProductos.get(i).getIdRestaurante()+".jpg");
+
 
         try {
             //File imagen = new File(context.getFilesDir().getPath().toString() + "/images/" + listaImagenes.get(position));
           //  File imagen = new File(context.getFilesDir(),listaImagenes.get(position));
-            //Picasso.get().load(imagen).into(holder.imagen);
-         /*   if(imagen.exists()) {
+    /*        Picasso.get().load(producto.getFile()).into(holder.imagen);
+            if(producto.getFile().exists()) {
                 System.out.println("hola");
-                Bitmap myBitmap = BitmapFactory.decodeFile(imagen.getAbsolutePath());
+                Bitmap myBitmap = BitmapFactory.decodeFile(producto.getFile().getAbsolutePath());
                 holder.imagen.setImageBitmap(myBitmap);
             }
-            System.out.println(imagen.length() + "-" + imagen.getAbsolutePath());*/
+            System.out.println(producto.getFile().length() + "-" + producto.getFile().getAbsolutePath());*/
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -177,39 +184,4 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHo
             listener.onClick(v);
         }
     }
-
-    /*public void leerImagen(String nombreImagen) {
-        InputStream in = null;
-        OutputStream out = null;
-        ArrayList<Byte> bytesImagen = new ArrayList<>();
-        File filePath = new File(context.getFilesDir().getPath().toString() + "/images/");
-        filePath.mkdir();
-        File imagen = new File(filePath,nombreImagen);
-
-        try {
-            in = SocketHandler.getSocket().getInputStream();
-            out = new FileOutputStream(imagen);
-            byte[] bytes = new byte[8096];
-
-            int count;
-
-            do {
-                count = in.read(bytes);
-                System.out.println("hola" + count);
-                out.write(bytes, 0, count);
-            } while (count == 8096);
-
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void recorrerImagenes(){
-        for (int i=0; i<listaProductos.size(); i++){
-            SocketHandler.getOut().println(Mensajes.PETICION_CARGAR_IMAGEN + "--" +listaProductos.get(i).getIdRestaurante()+"--"+listaProductos.get(i).getNombre());
-            leerImagen(listaProductos.get(i).getNombre()+listaProductos.get(i).getIdRestaurante()+".jpg");
-            listaImagenes.add(listaProductos.get(i).getNombre()+listaProductos.get(i).getIdRestaurante()+".jpg");
-        }
-    }*/
 }

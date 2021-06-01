@@ -37,13 +37,14 @@ public class Registro extends AppCompatActivity {
         final EditText email = findViewById(R.id.registro_email);
         final EditText nombre = findViewById(R.id.registro_nombre);
         final EditText direccion = findViewById(R.id.registro_direccion);
+        final EditText ciudad = findViewById(R.id.registro_ciudad);
         final Button registro = findViewById(R.id.registro_registro);
         final TextView iniciarSesion = findViewById(R.id.registro_iniciarsesion);
 
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SocketHandler.getOut().println(Mensajes.PETICION_REGISTRO+"--"+usuario.getText()+"--"+contrasena.getText()+"--"+email.getText()+"--"+ nombre.getText()+"--"+direccion.getText());
+                SocketHandler.getOut().println(Mensajes.PETICION_REGISTRO+"--"+usuario.getText()+"--"+email.getText()+"--"+contrasena.getText()+"--"+ nombre.getText()+"--"+direccion.getText()+"--"+ciudad.getText());
                 registro();
             }
         });
@@ -64,11 +65,12 @@ public class Registro extends AppCompatActivity {
 
 
     public void registro(){
-
         try {
-            if (SocketHandler.getIn().readLine().equals(Mensajes.PETICION_REGISTRO_CORRECTO))
+            String recived = SocketHandler.getIn().readLine();
+
+            if (recived.equals(Mensajes.PETICION_REGISTRO_CORRECTO))
                 Toast.makeText(this, "Registro correcto.", Toast.LENGTH_LONG).show();
-            else if(SocketHandler.getIn().readLine().equals(Mensajes.PETICION_REGISTRO_ERROR))
+            else if(recived.equals(Mensajes.PETICION_REGISTRO_ERROR))
                 Toast.makeText(this, "Error al registrarse.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();

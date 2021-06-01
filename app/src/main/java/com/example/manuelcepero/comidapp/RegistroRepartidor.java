@@ -52,9 +52,10 @@ public class RegistroRepartidor extends AppCompatActivity {
     public void registro(){
 
         try {
-            if (SocketHandler.getIn().readLine().equals(Mensajes.PETICION_REGISTRO_REPARTIDOR_CORRECTO))
+            String received = SocketHandler.getIn().readLine();
+            if (received.equals(Mensajes.PETICION_REGISTRO_REPARTIDOR_CORRECTO))
                 Toast.makeText(this, "Registro correcto.", Toast.LENGTH_LONG).show();
-            else if(SocketHandler.getIn().readLine().equals(Mensajes.PETICION_REGISTRO_REPARTIDOR_ERROR))
+            else if(received.equals(Mensajes.PETICION_REGISTRO_REPARTIDOR_ERROR))
                 Toast.makeText(this, "Error al registrarse.", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();

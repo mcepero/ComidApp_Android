@@ -3,12 +3,15 @@ package com.example.manuelcepero.comidapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
+
 public class Producto implements Parcelable {
     private int id;
     private String nombre;
     private String ingredientes;
     private double precio;
     private int idRestaurante;
+    private File file;
 
     public Producto(String nombre, String ingredientes, double precio) {
         this.nombre = nombre;
@@ -89,6 +92,14 @@ public class Producto implements Parcelable {
 
     public void setIdRestaurante(int idRestaurante) {
         this.idRestaurante = idRestaurante;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     @Override

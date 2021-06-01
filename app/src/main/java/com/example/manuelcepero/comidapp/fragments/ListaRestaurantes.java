@@ -113,7 +113,7 @@ public class ListaRestaurantes extends Fragment implements SearchView.OnQueryTex
             received = SocketHandler.getIn().readLine();
             args=received.split("--");
             flag = args[0];
-            System.out.println(received);
+            //System.out.println(received);
             ArrayList<String> listaCategorias = new ArrayList<>();
             listaCategorias.add("Todas");
             int numCategorias = Integer.parseInt(args[1]);

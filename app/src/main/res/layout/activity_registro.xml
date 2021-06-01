@@ -32,13 +32,14 @@
         android:gravity="center"></EditText>
 
     <EditText
-    android:id="@+id/registro_pass"
-    android:layout_width="300dp"
-    android:layout_height="50dp"
-    android:hint="Contraseña"
-    android:layout_gravity="center"
-    android:clickable="true"
-    android:gravity="center"/>
+        android:id="@+id/registro_pass"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Contraseña"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:inputType="textPassword"
+        android:gravity="center" />
 
     <EditText
         android:id="@+id/registro_nombre"
@@ -54,6 +55,16 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:hint="Dirección"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center">
+    </EditText>
+
+    <EditText
+        android:id="@+id/registro_ciudad"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Ciudad"
         android:layout_gravity="center"
         android:clickable="true"
         android:gravity="center">
