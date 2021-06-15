@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -18,6 +19,7 @@ import com.example.manuelcepero.comidapp.models.Pedido;
 import com.example.manuelcepero.comidapp.models.Producto;
 import com.example.manuelcepero.comidapp.models.Usuario;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
+import com.example.manuelcepero.comidapp.utils.UsuarioActual;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,6 +28,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PedidoRepartidorAdapter extends RecyclerView.Adapter<PedidoRepartidorAdapter.ViewHolder>{
@@ -87,39 +90,67 @@ public class PedidoRepartidorAdapter extends RecyclerView.Adapter<PedidoRepartid
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    SocketHandler.getOut().println(Mensajes.PETICION_MOSTRAR_DETALLES_PEDIDO_REPARTIDOR+"--"+listaPedidos.get(position).getId());
+                    SocketHandler.getOut().println(Mensajes.PETICION_RESTAURANTE_REPARTIDOR + "--" + UsuarioActual.getUsuario());
 
-                    String received;
-                    String flag = "";
-                    String[] args;
-
+                    String received = null;
                     try {
                         received = SocketHandler.getIn().readLine();
-                        args=received.split("--");
-                        flag = args[0];
-
-                        if (flag.equals(Mensajes.PETICION_MOSTRAR_DETALLES_PEDIDO_REPARTIDOR_CORRECTO)){
-                            Pedido p = listaPedidos.get(position);
-                            Usuario c = new Usuario(args[6],args[7],args[8],args[9]);
-                            DetallesPedidoRepartidor detallesPedidoRepartidor = new DetallesPedidoRepartidor();
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("pedido", p);
-                            bundle.putParcelable("cliente", c);
-                            detallesPedidoRepartidor.setArguments(bundle);
-
-                            AppCompatActivity activity = (AppCompatActivity) v.getContext();
-
-                            if (activity.getSupportFragmentManager().getBackStackEntryCount()> 1) {
-                                activity.getSupportFragmentManager().popBackStackImmediate();
-                            }
-                            activity.getSupportFragmentManager().beginTransaction().
-                                    replace(R.id.containerRepartidor, detallesPedidoRepartidor)
-                                    .addToBackStack(UltimosPedidosRepartidor.class.getName())
-                                    .commit();
-                        }
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }
+                    String[] args = received.split("--");
+                    String flag = args[0];
+
+                    if (flag.equals(Mensajes.PETICION_RESTAURANTE_REPARTIDOR_CORRECTO)) {
+                        UsuarioActual.setRestaurante(args[1]);
+                    }
+
+                    if (!UsuarioActual.getRestaurante().equals("null")) {
+                        int position = getAdapterPosition();
+                        SocketHandler.getOut().println(Mensajes.PETICION_MOSTRAR_DETALLES_PEDIDO_REPARTIDOR + "--" + listaPedidos.get(position).getId());
+
+                        try {
+                            received = SocketHandler.getIn().readLine();
+                            args = received.split("--");
+                            flag = args[0];
+
+                            if (flag.equals(Mensajes.PETICION_MOSTRAR_DETALLES_PEDIDO_REPARTIDOR_CORRECTO)) {
+                                Pedido p = listaPedidos.get(position);
+                                Usuario c = new Usuario(args[6], args[7], args[8], args[9]);
+                                DetallesPedidoRepartidor detallesPedidoRepartidor = new DetallesPedidoRepartidor();
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("pedido", p);
+                                bundle.putParcelable("cliente", c);
+                                detallesPedidoRepartidor.setArguments(bundle);
+
+                                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                                if (activity.getSupportFragmentManager().getBackStackEntryCount() > 1) {
+                                    activity.getSupportFragmentManager().popBackStackImmediate();
+                                }
+                                activity.getSupportFragmentManager().beginTransaction().
+                                        replace(R.id.containerRepartidor, detallesPedidoRepartidor)
+                                        .addToBackStack(UltimosPedidosRepartidor.class.getName())
+                                        .commit();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (NullPointerException e) {
+                            System.out.println("Error de conexión");
+                            Toast.makeText(context, "Error de conexión",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }else{
+                        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                        if (activity.getSupportFragmentManager().getBackStackEntryCount() > 1) {
+                            activity.getSupportFragmentManager().popBackStackImmediate();
+                        }
+                        activity.getSupportFragmentManager().beginTransaction().
+                                replace(R.id.containerRepartidor, new UltimosPedidosRepartidor())
+                                .commit();
+                        Toast.makeText(context, "Ya no eres repartidor de este restaurante",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
             });

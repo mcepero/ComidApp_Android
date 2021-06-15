@@ -23,12 +23,12 @@ import android.widget.Toast;
 import com.example.manuelcepero.comidapp.models.Usuario;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
 import com.example.manuelcepero.comidapp.utils.UsuarioActual;
-import com.example.manuelcepero.comidapp.viewmodels.LoginViewModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     String hostServerName = "192.168.0.16";//"10.0.2.2";
     int servicePort = 4444;
-
-    //LoginViewModel loginViewModel;
-
 
 
     @Override
@@ -79,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login(usuario.getText().toString(), contrasena.getText().toString());
+                if(usuario.getText().length()>0 && contrasena.getText().length()>0) {
+                    login(usuario.getText().toString(), contrasena.getText().toString());
+                }else{
+                    Toast.makeText(getApplicationContext(), "Los campos usuario y contraseña no pueden estar vacíos.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -102,13 +104,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(String usuario, String contrasena){
-
-        SocketHandler.getOut().println(Mensajes.PETICION_LOGIN+"--"+usuario+"--"+contrasena);
-        String received;
-        String flag = "";
-        String[] args;
-
         try {
+            SocketHandler.getOut().println(Mensajes.PETICION_LOGIN+"--"+usuario+"--"+contrasena);
+            String received;
+            String flag = "";
+            String[] args;
+
             received = SocketHandler.getIn().readLine();
             System.out.println(received);
             args=received.split("--");
@@ -132,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NullPointerException ex){
+            Toast.makeText(this, "Error al conectar con el servidor.",
+                    Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -143,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
                 SocketHandler.setIn();
             } catch (IOException ex) {
                 Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Error al conectar con el servidor");
+            }catch (Exception ex){
+                System.out.println("Error al conectar con el servidor");
             }
 
     }

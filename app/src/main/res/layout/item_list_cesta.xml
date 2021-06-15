@@ -3,23 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="150dp"
     android:layout_margin="16dp"
     app:cardElevation="2dp"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imagenProducto"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"></ImageView>
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"></ImageView>
 
         <LinearLayout
-            android:layout_width="227dp"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -31,7 +32,7 @@
                 android:gravity="center"
                 android:text="Nombre"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -39,11 +40,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.4"
                 android:gravity="center"
                 android:text="Ingredientes"
                 android:textAlignment="center"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
 
@@ -51,7 +52,7 @@
                 android:id="@+id/precioProductoLista"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="0.2"
                 android:gravity="center"
                 android:text="Precio"

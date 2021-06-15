@@ -14,6 +14,7 @@ import com.example.manuelcepero.comidapp.fragments.Mapa;
 import com.example.manuelcepero.comidapp.fragments.Perfil;
 import com.example.manuelcepero.comidapp.fragments.PerfilRepartidor;
 import com.example.manuelcepero.comidapp.fragments.UltimosPedidosRepartidor;
+import com.example.manuelcepero.comidapp.utils.RecargarUbicacionRepartidor;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InicioRepartidor extends AppCompatActivity {
@@ -25,6 +26,9 @@ public class InicioRepartidor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_repartidor);
         showSelectedFragment(new UltimosPedidosRepartidor());
+
+       // RecargarUbicacionRepartidor recargarUbicacion = new RecargarUbicacionRepartidor(getApplicationContext());
+      //  recargarUbicacion.start();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.menu_navegacion_repartidor);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,7 +48,6 @@ public class InicioRepartidor extends AppCompatActivity {
     private void showSelectedFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.containerRepartidor, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(this.getClass().getName())
                 .commit();
     }
 }

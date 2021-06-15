@@ -125,11 +125,14 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
                             }
                             activity.getSupportFragmentManager().beginTransaction().
                                     replace(R.id.container, detallesPedido).addToBackStack(ListaRestaurantes.class.getName())
-                                    .addToBackStack(ListaRestaurantes.class.getName())
                                     .commit();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }catch(NullPointerException e){
+                        System.out.println("Error de conexión");
+                        Toast.makeText(context, "Error de conexión",
+                                Toast.LENGTH_LONG).show();
                     }
                 }
             });

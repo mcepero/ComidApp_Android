@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.manuelcepero.comidapp.models.Usuario;
 import com.example.manuelcepero.comidapp.utils.Mensajes;
 import com.example.manuelcepero.comidapp.utils.UsuarioActual;
-import com.example.manuelcepero.comidapp.viewmodels.LoginViewModel;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -42,7 +41,12 @@ public class LoginRepartidor extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login(usuario.getText().toString(), contrasena.getText().toString());
+                if(usuario.getText().length()>0 && contrasena.getText().length()>0) {
+                    login(usuario.getText().toString(), contrasena.getText().toString());
+                }else{
+                    Toast.makeText(getApplicationContext(), "Los campos usuario y contraseña no pueden estar vacíos.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -65,13 +69,12 @@ public class LoginRepartidor extends AppCompatActivity {
     }
 
     public void login(String usuario, String contrasena){
-
-        SocketHandler.getOut().println(Mensajes.PETICION_LOGIN_REPARTIDOR+"--"+usuario+"--"+contrasena);
-        String received;
-        String flag = "";
-        String[] args;
-
         try {
+            SocketHandler.getOut().println(Mensajes.PETICION_LOGIN_REPARTIDOR+"--"+usuario+"--"+contrasena);
+            String received;
+            String flag = "";
+            String[] args;
+
             received = SocketHandler.getIn().readLine();
             args=received.split("--");
             flag = args[0];
@@ -95,6 +98,9 @@ public class LoginRepartidor extends AppCompatActivity {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NullPointerException ex){
+        Toast.makeText(this, "Error al conectar con el servidor.",
+                Toast.LENGTH_SHORT).show();
         }
 
     }

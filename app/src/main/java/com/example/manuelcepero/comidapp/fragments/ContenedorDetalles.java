@@ -90,7 +90,6 @@ public class ContenedorDetalles extends Fragment {
     private void showSelectedFragment(Fragment fragment){
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerDetalles, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(this.getClass().getName())
                 .commit();
     }
 }

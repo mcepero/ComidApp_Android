@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -48,33 +49,51 @@ public class UltimosPedidosRepartidor extends Fragment {
     }
 
     public void obtenerPedidos(){
-        SocketHandler.getOut().println(Mensajes.PETICION_MOSTRAR_PEDIDOS_REPARTIDOR+"--"+ UsuarioActual.getId());
+
+        SocketHandler.getOut().println(Mensajes.PETICION_RESTAURANTE_REPARTIDOR+"--"+ UsuarioActual.getUsuario());
+
+        String received = null;
         try {
-            String received;
-            String flag = "";
-            String[] args;
-
             received = SocketHandler.getIn().readLine();
-            args=received.split("--");
-            flag = args[0];
-
-            if (flag.equals(Mensajes.PETICION_MOSTRAR_PEDIDOS_REPARTIDOR_CORRECTO)){
-                int numPedidos = Integer.parseInt(args[1]);
-
-                for (int i=0; i<numPedidos; i++){
-                    received = SocketHandler.getIn().readLine();
-                    args=received.split("--");
-                    flag = args[0];
-
-                    Pedido p = new Pedido(Integer.parseInt(args[1]), Double.parseDouble(args[2]), args[3], args[4], args[5]);
-                    listaPedidos.add(p);
-                }
-                adapter = new PedidoRepartidorAdapter(getContext(), listaPedidos);
-                recyclerView.setAdapter(adapter);
-
-            }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        String[] args=received.split("--");
+        String flag = args[0];
+
+        if (flag.equals(Mensajes.PETICION_RESTAURANTE_REPARTIDOR_CORRECTO)){
+            UsuarioActual.setRestaurante(args[1]);
+        }
+
+        if (!UsuarioActual.getRestaurante().equals("null")) {
+            SocketHandler.getOut().println(Mensajes.PETICION_MOSTRAR_PEDIDOS_REPARTIDOR + "--" + UsuarioActual.getId());
+            try {
+                received = SocketHandler.getIn().readLine();
+                args = received.split("--");
+                flag = args[0];
+
+                if (flag.equals(Mensajes.PETICION_MOSTRAR_PEDIDOS_REPARTIDOR_CORRECTO)) {
+                    int numPedidos = Integer.parseInt(args[1]);
+
+                    for (int i = 0; i < numPedidos; i++) {
+                        received = SocketHandler.getIn().readLine();
+                        args = received.split("--");
+                        flag = args[0];
+
+                        Pedido p = new Pedido(Integer.parseInt(args[1]), Double.parseDouble(args[2]), args[3], args[4], args[5]);
+                        listaPedidos.add(p);
+                    }
+                    adapter = new PedidoRepartidorAdapter(getContext(), listaPedidos);
+                    recyclerView.setAdapter(adapter);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                System.out.println("Error de conexión");
+                Toast.makeText(getContext(), "Error de conexión",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 

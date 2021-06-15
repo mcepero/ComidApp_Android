@@ -52,7 +52,6 @@ public class Inicio extends AppCompatActivity {
     private void showSelectedFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(this.getClass().getName())
                 .commit();
     }
 }

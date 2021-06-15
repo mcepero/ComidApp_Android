@@ -11,7 +11,12 @@ import android.widget.TextView;
 import com.example.manuelcepero.comidapp.LoginRepartidor;
 import com.example.manuelcepero.comidapp.MainActivity;
 import com.example.manuelcepero.comidapp.R;
+import com.example.manuelcepero.comidapp.SocketHandler;
+import com.example.manuelcepero.comidapp.models.Usuario;
+import com.example.manuelcepero.comidapp.utils.Mensajes;
 import com.example.manuelcepero.comidapp.utils.UsuarioActual;
+
+import java.io.IOException;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -69,7 +74,26 @@ public class PerfilRepartidor extends Fragment{
         usuario.setText("Usuario: " + UsuarioActual.getUsuario());
         email.setText("Email: " + UsuarioActual.getEmail());
         dni.setText("DNI: " + UsuarioActual.getDni());
-        restaurante.setText("Restaurante: " + UsuarioActual.getRestaurante());
+        SocketHandler.getOut().println(Mensajes.PETICION_RESTAURANTE_REPARTIDOR+"--"+ UsuarioActual.getUsuario());
+
+        String received = null;
+        try {
+            received = SocketHandler.getIn().readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] args=received.split("--");
+        String flag = args[0];
+
+        if (flag.equals(Mensajes.PETICION_RESTAURANTE_REPARTIDOR_CORRECTO)){
+            UsuarioActual.setRestaurante(args[1]);
+        }
+
+        if (UsuarioActual.getRestaurante().equals("null")) {
+            restaurante.setText("Restaurante: ");
+        }else{
+            restaurante.setText("Restaurante: " + UsuarioActual.getRestaurante());
+        }
     }
 
 }

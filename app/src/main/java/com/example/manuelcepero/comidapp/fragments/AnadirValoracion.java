@@ -91,6 +91,10 @@ public class AnadirValoracion  extends Fragment {
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }catch(NullPointerException e){
+                        System.out.println("Error de conexión");
+                        Toast.makeText(getContext(), "Error de conexión",
+                                Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(getContext(), "Ya has añadido una valoración para este restaurante.",

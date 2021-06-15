@@ -169,7 +169,7 @@ public class RestauranteAdapter extends RecyclerView.Adapter<RestauranteAdapter.
                         activity.getSupportFragmentManager().popBackStackImmediate();
                     }
                     activity.getSupportFragmentManager().beginTransaction().
-                            replace(R.id.container, contenedorDetalles).addToBackStack(ListaRestaurantes.class.getName())
+                            replace(R.id.container, contenedorDetalles)
                             .addToBackStack(ListaRestaurantes.class.getName())
                             .commit();
 

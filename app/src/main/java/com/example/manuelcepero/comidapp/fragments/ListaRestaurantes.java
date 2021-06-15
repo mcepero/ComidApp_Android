@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.lang.reflect.Array;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -98,8 +100,16 @@ public class ListaRestaurantes extends Fragment implements SearchView.OnQueryTex
                 adapter = new RestauranteAdapter(getContext(), listaRestaurantes);
                 recyclerView.setAdapter(adapter);
             }
+        } catch(SocketException ex){
+            System.out.println("Error de conexión");
+            Toast.makeText(getContext(), "Error de conexión",
+                    Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch(NullPointerException e){
+            System.out.println("Error de conexión");
+            Toast.makeText(getContext(), "Error de conexión",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -130,8 +140,16 @@ public class ListaRestaurantes extends Fragment implements SearchView.OnQueryTex
             adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
             categorias.setAdapter(adapter);
+        } catch (SocketException e){
+            System.out.println("Error de conexión");
+            Toast.makeText(getContext(), "Error de conexión",
+                    Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch(NullPointerException e){
+            System.out.println("Error de conexión");
+            Toast.makeText(getContext(), "Error de conexión",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

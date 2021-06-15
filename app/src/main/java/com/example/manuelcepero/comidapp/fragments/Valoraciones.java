@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.manuelcepero.comidapp.R;
 import com.example.manuelcepero.comidapp.SocketHandler;
@@ -98,6 +99,10 @@ public class Valoraciones extends Fragment {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }catch(NullPointerException e){
+            System.out.println("Error de conexión");
+            Toast.makeText(getContext(), "Error de conexión",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
